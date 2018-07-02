@@ -11,11 +11,21 @@ import javax.swing.JTextField;
 public class PlayPanel extends JPanel {
 	
 	SimpleDateFormat formatter;
+	JTextField roundField;
 	JTextField timerField;
+	
+	long startTime;
+	long duration;
 	
 	public PlayPanel() {
 		formatter = new SimpleDateFormat("mm:ss");
 		Font font = new Font("SansSerif", Font.BOLD, 20);
+		
+		roundField = new JTextField();
+		roundField.setFont(font);
+		roundField.setBackground(Color.BLACK);
+		roundField.setForeground(Color.WHITE);
+		this.add(roundField);
 		timerField = new JTextField();
 		timerField.setFont(font);
 		timerField.setBackground(Color.BLACK);
@@ -23,26 +33,25 @@ public class PlayPanel extends JPanel {
 		this.add(timerField);
 	}
 	
-	public void updateTimer(long endTime, long warnTime) {
-		long timeRemaining = endTime - System.currentTimeMillis();
-		
-		if (timeRemaining < warnTime)
-		{
-			timerField.setForeground(Color.YELLOW);
-		} else 
-		{
-			timerField.setForeground(Color.GREEN);
-		}
-		
-		System.out.println(timeRemaining);
-		
-		if (timeRemaining < 0) {
-			java.awt.Toolkit.getDefaultToolkit().beep();
-		}
-		
-		Date date = new Date(timeRemaining);
-		
-		timerField.setText(formatter.format(date));
+	public void setRoundText(String text) {
+		roundField.setText(text);
+	}
+	
+	public void setTimerColor(Color color)
+	{
+		timerField.setForeground(color);
+	}
+	
+	public void roundStart(long duration) {
+		this.startTime = System.currentTimeMillis();
+		this.duration = duration;
+	}
+	
+	public void updateTimer() { 
+			long timeRemaining = startTime + duration - System.currentTimeMillis();
+			System.out.println(timeRemaining);
+			Date date = new Date(timeRemaining);
+			timerField.setText(formatter.format(date));
 	}
 	
 }

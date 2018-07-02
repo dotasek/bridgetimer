@@ -45,10 +45,22 @@ public class MainPanel extends JPanel implements ActionListener{
 		if (e.getSource() == playPause) {
 			if (playPause.isSelected()) {
 				cardLayout.show(cardPanel, PLAY); 
-				timer.schedule(new PlayTimerTask(playPanel, System.currentTimeMillis() + 60000l, 30000l), 0l, 1000l);
 				
+				int rounds = 3;
+				long restTime = 10000;
+				long roundTime =  30000;
+				long warningTime = 10000;
+				
+				long totalDuration = rounds * (roundTime + restTime);
+				
+				timer.schedule(new ClockUpdateTask(playPanel), 0l, 1000l);
+				timer.schedule(new StartRoundTask(playPanel, roundTime), 0l, roundTime + restTime);
+				timer.schedule(new WarningTask(playPanel), roundTime - warningTime, roundTime + restTime);
+				timer.schedule(new StartRestTask(playPanel, restTime), roundTime, roundTime + restTime);
 			} else {
+				timer.cancel();
 				cardLayout.show(cardPanel, SETTINGS);
+				
 			}	
 		}
 	}

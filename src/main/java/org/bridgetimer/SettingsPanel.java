@@ -1,11 +1,7 @@
 package org.bridgetimer;
 
-import java.text.ParseException;
-
-import javax.swing.JFormattedTextField;
 import javax.swing.JPanel;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.text.MaskFormatter;
 
 public class SettingsPanel extends JPanel {
 	
@@ -15,9 +11,6 @@ public class SettingsPanel extends JPanel {
 	
 	public SettingsPanel() {
 		super();
-		
-		
-		
 		SpinnerNumberModel model = new SpinnerNumberModel(DEFAULT_ROUND_TIME , 0, MAX_ROUND_TIME, 1);
 	}
 }
