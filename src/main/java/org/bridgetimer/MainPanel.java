@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
@@ -21,20 +22,24 @@ public class MainPanel extends JPanel implements ActionListener{
 	
 	private PlayPanel playPanel;
 	
-	Timer timer;
+	private Settings settings;
+	
+	Timer timer = null;
 	
 	public MainPanel() {
 		super(new BorderLayout());
+		settings = new Settings();
 		
-		timer = new Timer();
 		
 		cardLayout = new CardLayout();
 		cardPanel = new JPanel(cardLayout);
 		this.add(cardPanel, BorderLayout.CENTER);
+		SettingsPanel settingsPanel = new SettingsPanel(settings);
+		settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
+		cardPanel.add(settingsPanel, SETTINGS);
 		
-		cardPanel.add(new SettingsPanel(), SETTINGS);
-		
-		playPanel = new PlayPanel();
+		playPanel = new PlayPanel(settings);
+		playPanel.setLayout(new BoxLayout(playPanel, BoxLayout.Y_AXIS));
 		cardPanel.add(playPanel, PLAY);
 		
 		playPause.addActionListener(this);
@@ -44,6 +49,7 @@ public class MainPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == playPause) {
 			if (playPause.isSelected()) {
+				
 				cardLayout.show(cardPanel, PLAY); 
 				
 				int rounds = 3;
@@ -52,15 +58,15 @@ public class MainPanel extends JPanel implements ActionListener{
 				long warningTime = 10000;
 				
 				long totalDuration = rounds * (roundTime + restTime);
-				
+				timer = new Timer();
 				timer.schedule(new ClockUpdateTask(playPanel), 0l, 1000l);
 				timer.schedule(new StartRoundTask(playPanel, roundTime), 0l, roundTime + restTime);
 				timer.schedule(new WarningTask(playPanel), roundTime - warningTime, roundTime + restTime);
 				timer.schedule(new StartRestTask(playPanel, restTime), roundTime, roundTime + restTime);
 			} else {
 				timer.cancel();
+				timer.purge();
 				cardLayout.show(cardPanel, SETTINGS);
-				
 			}	
 		}
 	}

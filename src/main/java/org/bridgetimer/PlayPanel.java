@@ -15,9 +15,15 @@ public class PlayPanel extends JPanel {
 	JTextField timerField;
 	
 	long startTime;
-	long duration;
+	//long duration;
 	
-	public PlayPanel() {
+	Settings settings;
+
+	
+	public PlayPanel(Settings settings) {
+		
+		this.settings = settings;
+		
 		formatter = new SimpleDateFormat("mm:ss");
 		Font font = new Font("SansSerif", Font.BOLD, 20);
 		
@@ -26,6 +32,7 @@ public class PlayPanel extends JPanel {
 		roundField.setBackground(Color.BLACK);
 		roundField.setForeground(Color.WHITE);
 		this.add(roundField);
+		
 		timerField = new JTextField();
 		timerField.setFont(font);
 		timerField.setBackground(Color.BLACK);
@@ -44,11 +51,10 @@ public class PlayPanel extends JPanel {
 	
 	public void roundStart(long duration) {
 		this.startTime = System.currentTimeMillis();
-		this.duration = duration;
 	}
 	
 	public void updateTimer() { 
-			long timeRemaining = startTime + duration - System.currentTimeMillis();
+			long timeRemaining = startTime + settings.lengthOfRound - System.currentTimeMillis();
 			System.out.println(timeRemaining);
 			Date date = new Date(timeRemaining);
 			timerField.setText(formatter.format(date));
