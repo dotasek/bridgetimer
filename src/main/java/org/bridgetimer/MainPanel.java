@@ -57,12 +57,12 @@ public class MainPanel extends JPanel implements ActionListener{
 				long roundTime =  30000;
 				long warningTime = 10000;
 				
-				long totalDuration = rounds * (roundTime + restTime);
+			//	long totalDuration = rounds * (roundTime + restTime);
 				timer = new Timer();
 				timer.schedule(new ClockUpdateTask(playPanel), 0l, 1000l);
-				timer.schedule(new StartRoundTask(playPanel, roundTime), 0l, roundTime + restTime);
-				timer.schedule(new WarningTask(playPanel), roundTime - warningTime, roundTime + restTime);
-				timer.schedule(new StartRestTask(playPanel, restTime), roundTime, roundTime + restTime);
+				timer.schedule(new StartRoundTask(playPanel, settings.lengthOfRound), 0l, settings.lengthOfRound + restTime);
+				timer.schedule(new WarningTask(playPanel), settings.lengthOfRound - warningTime, settings.lengthOfRound + restTime);
+				timer.schedule(new StartRestTask(playPanel, restTime), settings.lengthOfRound, settings.lengthOfRound + restTime);
 			} else {
 				timer.cancel();
 				timer.purge();
