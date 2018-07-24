@@ -3,6 +3,8 @@ package org.bridgetimer;
 import java.awt.Color;
 import java.util.TimerTask;
 
+import org.bridgetimer.AudioAlerts.AlertType;
+
 public class StartRoundTask extends TimerTask{
 
 	private final PlayPanel playPanel;
@@ -23,5 +25,6 @@ public class StartRoundTask extends TimerTask{
 		playPanel.setRoundText("Round " + round);
 		playPanel.setTimerColor(Color.GREEN);
 		playPanel.roundStart(duration);
+		AudioAlerts.playAlert(AlertType.ROUND_START);
 	}
 }

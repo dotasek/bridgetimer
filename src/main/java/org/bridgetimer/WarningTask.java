@@ -3,6 +3,8 @@ package org.bridgetimer;
 import java.awt.Color;
 import java.util.TimerTask;
 
+import org.bridgetimer.AudioAlerts.AlertType;
+
 public class WarningTask extends TimerTask{
 
 	private final PlayPanel playPanel;
@@ -14,5 +16,6 @@ public class WarningTask extends TimerTask{
 	@Override
 	public void run() {
 		playPanel.setTimerColor(Color.YELLOW);
+		AudioAlerts.playAlert(AlertType.END_OF_ROUND_WARNING);
 	}
 }

@@ -3,6 +3,8 @@ package org.bridgetimer;
 import java.awt.Color;
 import java.util.TimerTask;
 
+import org.bridgetimer.AudioAlerts.AlertType;
+
 public class StartRestTask extends TimerTask{
 
 	private final PlayPanel playPanel;
@@ -19,5 +21,6 @@ public class StartRestTask extends TimerTask{
 		playPanel.setRoundText("Break");
 		playPanel.roundStart(duration);
 		playPanel.setTimerColor(Color.RED);
+		AudioAlerts.playAlert(AlertType.ROUND_END);
 	}
 }
