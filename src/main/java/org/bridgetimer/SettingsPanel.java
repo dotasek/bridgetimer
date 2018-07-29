@@ -29,6 +29,7 @@ public class SettingsPanel extends JPanel implements ChangeListener{
 		Date defaultDate = new Date(DEFAULT_ROUND_TIME * 1000);
 		BridgeTimerDateModel lengthOfRoundModel = new BridgeTimerDateModel(defaultDate, minDate, maxDate,  Calendar.MINUTE);
 		lengthOfRoundSpinner = new JSpinner(lengthOfRoundModel);
+		//Hello Nat
 		//DateEditor dateEditor = (DateEditor) lengthOfRoundSpinner.getEditor();
 		//dateEditor.set
 		//  ((DateEditor) lengthOfRoundSpinner.getEditor()).getFormat().applyPattern("mm:ss");
