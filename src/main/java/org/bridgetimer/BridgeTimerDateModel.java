@@ -16,9 +16,14 @@ public class BridgeTimerDateModel extends SpinnerDateModel {
         Date value = (Date) super.getValue();
         Calendar cal = Calendar.getInstance();
         cal.setTime(getDate());
+       
         cal.add(Calendar.MINUTE, -1);
         value = cal.getTime();
-        System.err.println("Decrement");
+        
+        if (value.compareTo(new Date(0)) < 0)
+        {
+        	value = new Date(0);
+        }
         return value;
     }
 
